@@ -69,18 +69,14 @@ Use getFinals to do the following:
 
 hint - you should be looking at the stage key inside of the objects
 */
-let finalsInfo = []
 
 function getFinals(data) {
-  for (let i = 0; i < data.length; i++){
-    if(data[i].Stage === 'Final') {
-      finalsInfo.push(data[i])
-    }
-  }
+  let finalsInfo = data.filter(function (item) {
+    return item.Stage === 'Final'
+  })
+  return finalsInfo;
 }
-
-getFinals(fifaData);
-console.log(finalsInfo);
+console.group(getFinals(fifaData));
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 3: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Use the higher-order function called getYears to do the following: 
@@ -88,16 +84,15 @@ Use the higher-order function called getYears to do the following:
 2. Receive a callback function getFinals from task 2 
 3. Return an array called years containing all of the years in the getFinals data set*/
 
-let finalsYears = []
-
-function getYears(arr) {
-  for (let i = 0; i < arr.length; i++){
-    finalsYears.push(arr[i].Year)
-  }
+function getYears(cb, arr) {
+  let finalsData = cb(arr);
+  let finalsYears = []
+   finalsData.forEach(function (item) {
+    finalsYears.push(item.Year);
+  }) 
+  return finalsYears;
 }
-
-getYears(finalsInfo);
-console.log(finalsYears);
+console.log(getYears(getFinals, fifaData));
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 4: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Use the higher-order function getWinners to do the following:  
